@@ -28,6 +28,8 @@ O usuário web não é proprietário das tabelas e não tem `BYPASSRLS`. Migrati
 
 A seleção de tenant usa função `SECURITY DEFINER` com `search_path` fixo. Ela consulta membership/grant ativo e devolve apenas booleano. Tasks Celery recebem `tenant_id` explicitamente e reutilizam o context manager.
 
+Validades temporais nas funções de autorização usam `statement_timestamp()`. Isso evita que uma membership criada dentro de uma transação longa seja comparada ao instante fixo do início da transação, sem reduzir o isolamento ou criar bypass de RLS.
+
 ## Fronteira futura da urna
 
 `ballot_box` ficará no schema PostgreSQL `ballot_box`, sem foreign keys ou imports para identidades. Permanecer no mesmo banco no MVP permite transação única entre cédula anônima, participação e consumo da credencial. A migração futura para banco separado exigirá protocolo idempotente específico e não será tratada como simples alteração de configuração.

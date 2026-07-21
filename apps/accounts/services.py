@@ -78,7 +78,7 @@ def accept_invitation(*, token: str, password: str) -> User:
         if row and row[0]:
             set_database_context(tenant_id=row[0], user_id=None)
     invitation = (
-        AccountInvitation.objects.select_for_update()
+        AccountInvitation.objects.select_for_update(of=("self",))
         .select_related("role", "tenant")
         .filter(token_digest=digest)
         .first()
