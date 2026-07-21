@@ -9,9 +9,9 @@ A Fase 1 implementa a fundação: autenticação administrativa por convite, MFA
 ### Verificação desta entrega
 
 - Suíte local: 37 testes aprovados e cobertura total de 84,45%.
-- Dois testes PostgreSQL/RLS ficaram ignorados e o E2E ficou desmarcado porque este host não oferece PostgreSQL, Redis, navegador Playwright nem daemon Docker.
-- Ruff, formatação, mypy, Bandit, `makemigrations --check`, `check --deploy`, seed idempotente, cadeia de auditoria, build Tailwind/HTMX, lockfiles e `pip-audit` passaram.
-- A Fase 1 permanece **não concluída** até o workflow/Compose executar PostgreSQL, Redis, RLS, triggers e o fluxo E2E no runtime Python 3.13.14.
+- CI em Python 3.13.14: 39 testes aprovados e cobertura de 85,18%, usando PostgreSQL 17 e Redis 8 reais; os testes de RLS e as migrations de triggers passaram.
+- Ruff, formatação, mypy, Bandit, `makemigrations --check`, `check --deploy`, build Tailwind/HTMX, lockfiles e `pip-audit` passaram no GitHub Actions.
+- A Fase 1 permanece **não concluída** até demonstrar os quatro serviços saudáveis no Compose/Codespaces e o fluxo E2E convite → MFA → seleção de tenant → autorização → auditoria.
 
 ## Arquitetura
 
