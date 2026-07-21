@@ -1,0 +1,112 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cipa-eleitoral"
+version = "0.1.0"
+description = "Fundação do SaaS B2B para processos eleitorais da CIPA"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "argon2-cffi==25.1.0",
+  "celery==5.6.3",
+  "cryptography==48.0.1",
+  "Django==5.2.16",
+  "django-allauth[mfa]==65.18.0",
+  "django-csp==4.0",
+  "django-environ==0.12.0",
+  "django-storages[s3]==1.14.6",
+  "gunicorn==23.0.0",
+  "psycopg[binary]==3.2.10",
+  "redis==6.4.0",
+  "whitenoise==6.9.0",
+]
+
+[dependency-groups]
+dev = [
+  "bandit==1.8.6",
+  "django-stubs==5.2.2",
+  "mypy==1.17.1",
+  "pip-audit==2.9.0",
+  "playwright==1.54.0",
+  "pytest==9.0.3",
+  "pytest-cov==6.2.1",
+  "pytest-django==4.11.1",
+  "pytest-playwright==0.8.0",
+  "ruff==0.12.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "bandit==1.8.6",
+  "django-stubs==5.2.2",
+  "mypy==1.17.1",
+  "pip-audit==2.9.0",
+  "playwright==1.54.0",
+  "pytest==9.0.3",
+  "pytest-cov==6.2.1",
+  "pytest-django==4.11.1",
+  "pytest-playwright==0.8.0",
+  "ruff==0.12.7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["apps", "config"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py", "tests.py"]
+addopts = "--strict-markers --strict-config --reuse-db --cov=apps --cov-report=term-missing"
+markers = [
+  "postgres: requires PostgreSQL-specific behavior",
+  "e2e: browser end-to-end test",
+]
+
+[tool.coverage.run]
+branch = true
+omit = ["*/migrations/*", "*/tests/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "DJ", "S"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"config/settings/*.py" = ["F403", "F405", "S105"]
+"apps/*/tests/*.py" = ["S106"]
+
+[tool.mypy]
+python_version = "3.13"
+plugins = ["mypy_django_plugin.main"]
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+exclude = "(migrations|tests|admin.py|management/commands)"
+
+[[tool.mypy.overrides]]
+module = ["apps.*.models"]
+disable_error_code = ["arg-type", "misc", "override"]
+
+[[tool.mypy.overrides]]
+module = ["apps.*.forms"]
+disable_error_code = ["arg-type", "attr-defined", "union-attr", "return-value"]
+
+[[tool.mypy.overrides]]
+module = ["apps.*.views", "apps.*.middleware", "apps.*.signals"]
+disable_error_code = ["arg-type", "attr-defined"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[tool.bandit]
+exclude_dirs = ["tests", "migrations"]

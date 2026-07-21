@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Sair — CIPA Eleitoral{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-md rounded-xl border bg-white p-6">
+  <h1 class="text-2xl font-bold">Encerrar sessão</h1>
+  <p class="mt-2">Confirma o encerramento desta sessão?</p>
+  <form method="post" action="{% url 'account_logout' %}" class="mt-6">{% csrf_token %}<button class="bg-brand-700 text-white" type="submit">Sair com segurança</button></form>
+</section>
+{% endblock %}

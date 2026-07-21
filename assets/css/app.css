@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@source "../../templates/**/*.html";
+@source "../../apps/**/*.py";
+
+@theme {
+  --color-brand-50: #eefbf4;
+  --color-brand-600: #087a45;
+  --color-brand-700: #056338;
+  --color-ink: #17201b;
+}
+
+@layer base {
+  body { @apply bg-slate-50 text-slate-900 antialiased; }
+  a { @apply underline-offset-4; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-brand-600; }
+  label { @apply block text-sm font-medium text-slate-800; }
+  input, select, textarea { @apply mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-base; }
+  button { @apply min-h-11 rounded-lg px-4 py-2 font-semibold; }
+}

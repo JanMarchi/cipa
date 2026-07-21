@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Usuários · CIPA Eleitoral{% endblock %}
+{% block content %}
+  <div class="grid gap-4 sm:grid-cols-2">
+    <section>
+      <h1 class="text-3xl font-bold tracking-tight">Usuários e papéis</h1>
+      <div class="mt-6 overflow-x-auto rounded-xl border border-slate-200 bg-white">
+        <table class="w-full text-left text-sm">
+          <thead><tr><th class="p-3">Usuário</th><th class="p-3">Papel</th><th class="p-3">Escopo</th></tr></thead>
+          <tbody>
+            {% for membership in memberships %}
+              <tr class="border-t border-slate-200">
+                <td class="p-3">{{ membership.user.full_name }}<br><span class="text-slate-600">{{ membership.user.email }}</span></td>
+                <td class="p-3">{{ membership.role.name }}</td>
+                <td class="p-3">{{ membership.organization|default:membership.company|default:membership.establishment|default:active_tenant }}</td>
+              </tr>
+            {% empty %}<tr><td colspan="3" class="p-3">Nenhum usuário disponível neste escopo.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="rounded-xl border border-slate-200 bg-white p-6">
+      <h2 class="text-2xl font-semibold">Convidar usuário</h2>
+      <p class="mt-2 text-sm text-slate-600">O link expira em 48 horas e só pode ser usado uma vez.</p>
+      <form method="post" class="mt-6 space-y-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-brand-700 text-white">Enviar convite</button>
+      </form>
+    </section>
+  </div>
+{% endblock %}

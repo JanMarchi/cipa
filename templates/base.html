@@ -1,0 +1,48 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="htmx-config" content='{"includeIndicatorStyles": false, "allowEval": false, "allowScriptTags": false}'>
+  <title>{% block title %}CIPA Eleitoral{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'dist/app.css' %}">
+  <script src="{% static 'dist/htmx.min.js' %}" defer></script>
+</head>
+<body>
+  <a href="#conteudo" class="sr-only focus:not-sr-only">Ir para o conteúdo</a>
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
+      <a href="{% url 'home' %}" class="text-lg font-bold no-underline text-brand-700">CIPA Eleitoral</a>
+      {% if user.is_authenticated %}
+        <nav aria-label="Navegação principal" class="flex flex-wrap items-center gap-4 text-sm">
+          {% if active_tenant %}
+            <a href="{% url 'dashboard' active_tenant.slug %}">Dashboard</a>
+            <a href="{% url 'company-list' %}">Empresas</a>
+            <a href="{% url 'establishment-list' %}">Estabelecimentos</a>
+            <a href="{% url 'user-list' %}">Usuários</a>
+            <a href="{% url 'audit-event-list' %}">Auditoria</a>
+          {% endif %}
+          <a href="{% url 'tenant-select' %}">Trocar contexto</a>
+          <a href="{% url 'account_logout' %}">Sair</a>
+        </nav>
+      {% endif %}
+    </div>
+  </header>
+  {% if active_tenant %}
+    <div class="bg-brand-50 px-4 py-2 text-center text-sm text-brand-700">Contexto ativo: {{ active_tenant.name }}</div>
+  {% endif %}
+  <main id="conteudo" class="mx-auto max-w-7xl px-4 py-8" tabindex="-1">
+    {% if messages %}
+      <div aria-live="polite" class="mb-6 space-y-2">
+        {% for message in messages %}<p class="rounded-lg border border-slate-300 bg-white p-3">{{ message }}</p>{% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-600">
+    A plataforma auxilia a gestão do processo e não substitui avaliação jurídica.
+  </footer>
+</body>
+</html>

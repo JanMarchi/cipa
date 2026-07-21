@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Início — CIPA Eleitoral{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-3xl py-12 text-center">
+  <p class="mb-3 font-semibold text-brand-700">Gestão eleitoral multiempresa</p>
+  <h1 class="text-4xl font-bold tracking-tight">Processos da CIPA organizados, documentados e auditáveis</h1>
+  <p class="mx-auto mt-5 max-w-2xl text-lg text-slate-600">Acesso administrativo seguro por convite, com isolamento de dados e trilha de auditoria.</p>
+  <a href="{% url 'account_login' %}" class="mt-8 inline-block rounded-lg bg-brand-700 px-6 py-3 font-semibold text-white no-underline">Entrar</a>
+</section>
+{% endblock %}

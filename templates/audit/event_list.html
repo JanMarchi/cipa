@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Auditoria — CIPA Eleitoral{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold">Auditoria</h1><p class="mt-2 text-slate-600">Últimos 200 eventos do contexto, somente leitura.</p>
+<div class="mt-6 overflow-x-auto rounded-xl border bg-white"><table class="w-full text-left text-sm"><thead><tr><th class="p-4">Data</th><th class="p-4">Evento</th><th class="p-4">Ator</th><th class="p-4">Sequência</th><th class="p-4">Integridade</th></tr></thead><tbody>{% for event in events %}<tr class="border-t"><td class="p-4">{{ event.occurred_at|date:"d/m/Y H:i" }}</td><td class="p-4">{{ event.event_type }}</td><td class="p-4">{{ event.actor.email|default:"Sistema" }}</td><td class="p-4">{{ event.sequence }}</td><td class="p-4 font-mono">{{ event.current_hash|slice:":12" }}…</td></tr>{% empty %}<tr><td colspan="5" class="p-6 text-center">Nenhum evento.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Empresas — CIPA Eleitoral{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between gap-4"><div><h1 class="text-3xl font-bold">Empresas</h1><p class="mt-1 text-slate-600">Empresas clientes do contexto ativo.</p></div><a class="rounded-lg bg-brand-700 px-4 py-3 font-semibold text-white no-underline" href="{% url 'company-create' %}">Nova empresa</a></div>
+<div class="mt-6 overflow-x-auto rounded-xl border bg-white"><table class="w-full text-left"><thead><tr><th class="p-4">Razão social</th><th class="p-4">Nome fantasia</th><th class="p-4">Organização</th><th class="p-4">Status</th></tr></thead><tbody>{% for company in companies %}<tr class="border-t"><td class="p-4">{{ company.corporate_name }}</td><td class="p-4">{{ company.trade_name|default:"—" }}</td><td class="p-4">{{ company.organization.name }}</td><td class="p-4">{{ company.get_status_display }}</td></tr>{% empty %}<tr><td colspan="4" class="p-6 text-center text-slate-600">Nenhuma empresa cadastrada.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

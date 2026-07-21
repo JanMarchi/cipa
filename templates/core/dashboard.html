@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — CIPA Eleitoral{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold">Visão geral</h1>
+<p class="mt-2 text-slate-600">Fundação administrativa do contexto ativo.</p>
+<div class="mt-8 grid gap-4 sm:grid-cols-2">
+  <article class="rounded-xl border border-slate-200 bg-white p-6"><p class="text-sm text-slate-600">Empresas ativas</p><p class="mt-2 text-3xl font-bold">{{ company_count }}</p></article>
+  <article class="rounded-xl border border-slate-200 bg-white p-6"><p class="text-sm text-slate-600">Estabelecimentos ativos</p><p class="mt-2 text-3xl font-bold">{{ establishment_count }}</p></article>
+</div>
+<section class="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5">
+  <h2 class="font-semibold">Escopo desta entrega</h2>
+  <p class="mt-1 text-sm">Eleições, eleitores e urna ainda não estão habilitados. Esses módulos só serão iniciados após validação dos gates de isolamento.</p>
+</section>
+{% endblock %}

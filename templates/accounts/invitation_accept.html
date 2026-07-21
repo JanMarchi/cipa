@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Aceitar convite — CIPA Eleitoral{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-md rounded-xl border bg-white p-6">
+  <h1 class="text-2xl font-bold">Ativar conta</h1>
+  <p class="mt-2 text-sm text-slate-600">Defina uma senha forte. Depois será obrigatório configurar o segundo fator.</p>
+  <form method="post" class="mt-6 space-y-4">{% csrf_token %}{{ form.as_p }}<button class="w-full bg-brand-700 text-white">Ativar e configurar MFA</button></form>
+</section>
+{% endblock %}

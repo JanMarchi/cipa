@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Selecionar contexto — CIPA Eleitoral{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-2xl">
+  <h1 class="text-3xl font-bold">Selecione o contexto</h1>
+  <p class="mt-2 text-slate-600">A seleção é validada novamente no backend e no banco.</p>
+  {% if tenants %}
+  <form method="post" class="mt-6 rounded-xl border bg-white p-6">{% csrf_token %}
+    <label for="tenant_id">Organização</label>
+    <select id="tenant_id" name="tenant_id" required>{% for tenant in tenants %}<option value="{{ tenant.id }}">{{ tenant.name }}</option>{% endfor %}</select>
+    <button class="mt-5 bg-brand-700 text-white" type="submit">Continuar</button>
+  </form>
+  {% else %}<p class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5">Sua conta ainda não possui um contexto ativo. Contate o administrador responsável.</p>{% endif %}
+</section>
+{% endblock %}
